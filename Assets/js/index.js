@@ -1,9 +1,8 @@
 var repoList = document.querySelectorAll('.list-group')[0];
-//var fetchButton = document.getElementById('fetch-button');
-console.log(repoList);
+
 
 function getApi() {
-    // replace `octocat` with anyone else's GitHub username
+
     var requestUrl = 'https://api.github.com/users/MonaMahmoud/starred';
 
     fetch(requestUrl)
@@ -17,19 +16,21 @@ function getApi() {
             var link;
             var descColumn;
             var listLink;
+            row = document.getElementById('workRow');
+            var newRow;
 
-            console.log(data.length)
             for (var i = 0; i < data.length; i++) {
-                console.log(data[i]);
-                row = document.createElement('div');
-                row.classList.add('row');
+
+                newRow = document.createElement('div');
+                newRow.classList.add('row');
+                newRow.classList.add('gy-5');
 
                 imgColumn = document.createElement('div');
                 imgColumn.classList.add('col');
 
                 img = document.createElement('img');
-                console.log(data[i].description.split("("))[1];
-                // img.src = (data[i].description.split("("))[1].replace(")", "");
+                img.classList.add('img-fluid');
+                img.src = (data[i].description.split("("))[1].replace(")", "");
                 console.log(img.src);
                 link = document.createElement('a');
 
@@ -37,47 +38,47 @@ function getApi() {
                 descColumn.classList.add('col');
 
                 listLink = document.createElement('a');
+                listLink.href = data[i].html_url;
 
 
-                if (data[i].homepage == "") {
-                    listLink.href = data[i].html_url;
-                    link.href = data[i].html_url;
-                } else {
-                    listLink.href = data[i].homepage;
-                    link.href = data[i].homepage;
-                }
                 link.appendChild(img);
-                console.log(data[i].html_url);
-                console.log(data[i].homepage);
-                listLink.textContent = data[i].name;
+                listLink.innerHTML = data[i].name + ": <br><br>" + (data[i].description.split("("))[0] + "<br><br> Click to visit project repository!";
                 listLink.classList.add("list-group-item");
                 listLink.classList.add("list-group-item-action");
-                listLink.classList.add("text-capitalize");
+
                 listLink.classList.add("bg-dark");
                 listLink.classList.add("text-info");
                 listLink.classList.add("p-4");
+                listLink.classList.add('h3');
                 listLink.target = "_blank";
 
 
-                var listDesc = document.createElement('p');
-                //listLink.href = data[i].html_url;
-                listDesc.textContent = data[i].description;
-                listDesc.classList.add("list-group-item");
-                listDesc.classList.add("list-group-item-action");
-                listDesc.classList.add("text-capitalize");
-                listDesc.classList.add("bg-dark");
-                listDesc.classList.add("text-white");
-                listDesc.classList.add("p-4");
 
 
+                var deployedLink = document.createElement('a');
+                var imageSpan = document.createElement('span');
+
+                imageSpan.textContent = "Click on image to visit deployed link!";
+
+                if (data[i].homepage == "") {
+                    deployedLink.href = data[i].html_url;
+                    deployedLink.href = data[i].html_url;
+                } else {
+                    deployedLink.href = data[i].homepage;
+                    deployedLink.href = data[i].homepage;
+                }
 
 
-                repoList.appendChild(listLink);
-                row.appendChild(imgColumn);
-                row.appendChild(descColumn);
-                repoList.appendChild(row);
+                deployedLink.appendChild(img);
+
+                imgColumn.appendChild(deployedLink);
+                imgColumn.appendChild(imageSpan);
+                descColumn.appendChild(listLink);
+                newRow.appendChild(descColumn);
+                newRow.appendChild(imgColumn);
+                row.appendChild(newRow);
+
             }
         });
 }
 getApi();
-//fetchButton.addEventListener('click', getApi);
