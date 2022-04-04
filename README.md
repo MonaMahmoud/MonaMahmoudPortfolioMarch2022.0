@@ -4,7 +4,7 @@ This is the portfolio page of Mona Mahmoud, who is a self-motivated, creative, a
 
 ## Installation
 Feel free to visit the portfolio page from your browser through this link:
-https://monamahmoud.github.io/UpdatedPortfolio/
+https://monamahmoud.github.io/MonaMahmoudPortfolioMarch2022.0/
 
 ## Usage
 Browse through the different portfolio sections as in the screenshots:<br/><br/>
